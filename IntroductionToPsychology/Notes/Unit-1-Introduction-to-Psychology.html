@@ -1,0 +1,1240 @@
+<title>Psyche &amp; Method</title>
+<style>
+  :root {
+    --ground: #f6f7fb;
+    --surface: #ffffff;
+    --sunk: #eef1f8;
+    --ink: #14192b;
+    --muted: #5c6683;
+    --line: #dde2ed;
+    --line-strong: #c3ccdd;
+    --accent: #2a4b8d;
+    --accent-soft: #e7edf9;
+    --flag: #8a5b00;
+    --flag-soft: #fbf2df;
+    --flag-line: #e6cf9c;
+
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', 'Hoefler Text', Georgia, serif;
+    --sans: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0e1119;
+      --surface: #151a26;
+      --sunk: #1b2130;
+      --ink: #e6e9f2;
+      --muted: #99a3bc;
+      --line: #262d3d;
+      --line-strong: #3a445b;
+      --accent: #8fb0ee;
+      --accent-soft: #1c2540;
+      --flag: #e0b25e;
+      --flag-soft: #2a2213;
+      --flag-line: #5a4a22;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0e1119;
+    --surface: #151a26;
+    --sunk: #1b2130;
+    --ink: #e6e9f2;
+    --muted: #99a3bc;
+    --line: #262d3d;
+    --line-strong: #3a445b;
+    --accent: #8fb0ee;
+    --accent-soft: #1c2540;
+    --flag: #e0b25e;
+    --flag-soft: #2a2213;
+    --flag-line: #5a4a22;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(28px, 5vw, 64px) clamp(18px, 4vw, 44px) 96px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 1000px) {
+    .page {
+      grid-template-columns: 186px minmax(0, 1fr);
+      align-items: start;
+      column-gap: 56px;
+    }
+    .masthead { grid-column: 1 / -1; }
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 22px;
+  }
+
+  .course-line {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-bottom: 18px;
+  }
+
+  .course-line span:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    vertical-align: 3px;
+    margin-left: 16px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.3rem, 6vw, 3.5rem);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0 0 14px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .standfirst {
+    color: var(--muted);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .syllabus {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .syllabus b {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    align-self: center;
+    margin-right: 4px;
+  }
+
+  .chip {
+    font-size: 13px;
+    padding: 4px 11px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+
+  .chip.now {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ---------- rail ---------- */
+
+  nav.rail { display: none; }
+
+  @media (min-width: 1000px) {
+    nav.rail {
+      display: block;
+      position: sticky;
+      top: 40px;
+      border-left: 1px solid var(--line);
+      padding-left: 18px;
+    }
+    nav.rail h2 {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin: 0 0 14px;
+    }
+    nav.rail ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    nav.rail a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      line-height: 1.35;
+      display: block;
+      border-bottom: 1px solid transparent;
+    }
+    nav.rail a:hover,
+    nav.rail a:focus-visible { color: var(--accent); }
+  }
+
+  /* ---------- flow ---------- */
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    min-width: 0;
+  }
+
+  section { scroll-margin-top: 28px; }
+
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .date {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--surface);
+    background: var(--accent);
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .eyebrow .kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.55rem, 3.4vw, 2.05rem);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0 0 10px;
+  }
+
+  p, li { max-width: var(--measure); }
+
+  main p { margin: 0 0 14px; }
+
+  ul.notes {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  ul.notes > li {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  ul.notes > li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+  }
+
+  ul.notes ul {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0 0 0 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  ul.notes ul li { padding-left: 16px; position: relative; }
+  ul.notes ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--line-strong);
+  }
+
+  strong { font-weight: 650; }
+
+  .cite {
+    font-family: var(--mono);
+    font-size: 0.78em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ---------- definition block ---------- */
+
+  .def {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+    margin: 0 0 20px;
+    max-width: var(--measure);
+  }
+
+  .def dt {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 7px;
+  }
+
+  .def dd {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1.14rem;
+    line-height: 1.5;
+  }
+
+  .def dd + dt { margin-top: 16px; }
+
+  .def .src {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ---------- flag ---------- */
+
+  .flag {
+    background: var(--flag-soft);
+    border: 1px solid var(--flag-line);
+    border-radius: 4px;
+    padding: 13px 16px;
+    font-size: 0.92rem;
+    color: var(--ink);
+    max-width: var(--measure);
+    margin: 0 0 18px;
+  }
+
+  .flag b {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--flag);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  /* ---------- timeline ---------- */
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    border-left: 1px solid var(--line);
+    padding-left: 26px;
+    margin-left: 6px;
+  }
+
+  .school { position: relative; }
+
+  .school::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 2px solid var(--accent);
+  }
+
+  .school-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .school-head h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .who {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  /* ---------- mind layers ---------- */
+
+  .mind {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 6px 0 18px;
+  }
+
+  .layer {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 13px 16px;
+  }
+
+  .layer:first-child { border-radius: 5px 5px 0 0; }
+  .layer:last-child { border-radius: 0 0 5px 5px; }
+
+  .layer .lv {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .layer .lv b { font-size: 0.95rem; }
+
+  .layer .lv span {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .layer p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+  .layer.deep { background: var(--sunk); }
+
+  .caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: -8px;
+  }
+
+  /* ---------- goal cards ---------- */
+
+  .goals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .goal {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 16px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .goal .n {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .goal h3 {
+    font-family: var(--serif);
+    font-size: 1.22rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .goal p { font-size: 0.9rem; margin: 0; color: var(--muted); }
+  .goal p.q { color: var(--ink); font-family: var(--serif); font-size: 1rem; }
+
+  /* ---------- steps ---------- */
+
+  .steps {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .steps li {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    padding: 8px 12px;
+    background: var(--surface);
+  }
+
+  .steps li.arrow {
+    border: 0;
+    background: none;
+    color: var(--line-strong);
+    padding: 0;
+  }
+
+  .steps li.open {
+    border-style: dashed;
+    color: var(--muted);
+    background: none;
+  }
+
+  /* ---------- table ---------- */
+
+  .scroller {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--surface);
+    margin-bottom: 18px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 620px;
+    font-size: 0.92rem;
+  }
+
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--sunk);
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+
+  td ul { margin: 0; padding-left: 17px; display: flex; flex-direction: column; gap: 6px; }
+  td ul li { max-width: none; }
+
+  /* ---------- books ---------- */
+
+  ol.books {
+    list-style: none;
+    counter-reset: bk;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  ol.books li {
+    counter-increment: bk;
+    position: relative;
+    padding-left: 34px;
+    font-family: var(--serif);
+    font-size: 1rem;
+  }
+
+  ol.books li::before {
+    content: counter(bk);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    width: 22px;
+    text-align: center;
+    line-height: 20px;
+  }
+
+  footer {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  a { color: var(--accent); }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="course-line">
+      <span>Psychology&nbsp;I</span>
+      <span>LAL 320</span>
+      <span>Unit 1</span>
+    </div>
+    <h1>Introduction to <em>Psychology</em></h1>
+    <p class="standfirst">Lecture notes for the opening unit — what psychology studies, why it insists on
+      being a science, the schools of thought that built it, and the four goals its methods serve.</p>
+    <div class="syllabus">
+      <b>Course topics</b>
+      <span class="chip now">Introduction to Psychology</span>
+      <span class="chip">Emotion</span>
+      <span class="chip">Biology of Behaviour</span>
+      <span class="chip">Learning</span>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#defining">Defining psychology</a></li>
+      <li><a href="#scientific">Why be scientific?</a></li>
+      <li><a href="#history">Historical roots</a></li>
+      <li><a href="#nature-nurture">Nature–nurture</a></li>
+      <li><a href="#wundt">Scientific psychology begins</a></li>
+      <li><a href="#schools">Schools of thought</a></li>
+      <li><a href="#cognitive">The cognitive revolution</a></li>
+      <li><a href="#science">Psychology as a science</a></li>
+      <li><a href="#goals">The four goals</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#application">Application &amp; professions</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#gaps">Gaps to fill</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- 1 -->
+    <section id="defining">
+      <div class="eyebrow">
+        <span class="date">3 Aug</span>
+        <span class="kicker">Lecture 1</span>
+      </div>
+      <h2>Defining psychology</h2>
+
+      <ul class="notes">
+        <li><strong>Cognition</strong> — anything that has to do with things going on in the mind.</li>
+        <li>Greek word <strong>psyche</strong> — soul.</li>
+        <li>A <strong>hub science</strong> — heavily cited in other disciplines.</li>
+      </ul>
+
+      <dl class="def">
+        <dt>Psychology</dt>
+        <dd>The scientific study of behaviour and mental processes.
+          <span class="src">Ciccarelli &amp; Misra (2021); Atkinson &amp; Hilgard (2019)</span>
+        </dd>
+        <dt>Morgan &amp; King</dt>
+        <dd>The science of psychology.
+          <span class="src">Morgan &amp; King (2025)</span>
+        </dd>
+      </dl>
+
+      <h3>Behaviour</h3>
+      <ul class="notes">
+        <li>Anything that a person or animal does that <strong>can be observed</strong> in some way.</li>
+        <li>Can be recorded and studied — we see and hear it.</li>
+        <li>Measure what a person does and hears; the record helps make <strong>inferences</strong> about
+          feelings, attitudes, thoughts and other mental processes.</li>
+      </ul>
+
+      <h3>Mental processes</h3>
+      <ul class="notes">
+        <li>All the internal, <strong>covert</strong> (hidden) activity of our minds — such as thinking,
+          feeling, remembering.</li>
+        <li>Behaviour is the <strong>avenue</strong> to study mental processes.</li>
+        <li>Experiment and observation are the core.</li>
+      </ul>
+
+      <h3>Scope — and what it is not</h3>
+      <ul class="notes">
+        <li>Studying behaviour is not limited to psychology — <strong>sociology, economics,
+          anthropology</strong> do it too.</li>
+        <li>Personal experience and common sense are <strong>not</strong> exactly what psychology is about.</li>
+      </ul>
+    </section>
+
+    <!-- 2 -->
+    <section id="scientific">
+      <div class="eyebrow">
+        <span class="kicker">Why scientific?</span>
+      </div>
+      <h2>Why psychology has to be scientific</h2>
+
+      <ul class="notes">
+        <li><strong>Theories</strong> summarise many observations and predict what can be expected to happen
+          in new situations.</li>
+        <li>Researchers must <strong>observe</strong> them — a theory is not enough on its own.</li>
+        <li>Whenever a human observes anything, there is always the possibility that the observer will
+          <strong>only see what they expect to see</strong>.</li>
+        <li>We don't need biases — use a <strong>systematic</strong> approach to study psychology
+          scientifically.</li>
+      </ul>
+
+      <h3>Findings intuition would not have given us</h3>
+      <ul class="notes">
+        <li><strong>Brain damage and face recognition</strong> — prosopagnosia; now wider.</li>
+        <li><strong>Fundamental attribution error</strong> — attributing traits to people rather than to the
+          situation.
+          <ul>
+            <li>Contrast this with the <strong>over-justification effect</strong>: a moment where social
+              context makes us do something — we can justify that it doesn't come from within, it is for
+              the external thing.</li>
+          </ul>
+        </li>
+        <li><strong>Childhood amnesia</strong> — almost no one can recall events from the first 3 years of
+          life.</li>
+        <li><strong>Obesity</strong> — National Family Health Survey: significant changes in walking and
+          talking; increased vulnerability to diabetes is high. Psychology is interested in the factors that
+          lead people to eat too much.</li>
+        <li><strong>Media violence and children's aggression</strong> — the claim that watching violence on
+          TV causes children to be more aggressive has been controversial.
+          <ul>
+            <li>Although many observers believe televised violence affects children's behaviour, others
+              suggest that watching violence has a <strong>cathartic effect</strong>.</li>
+            <li>One factor seems to be a history of <strong>deprivation</strong>.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section id="history">
+      <div class="eyebrow">
+        <span class="date">9 Aug</span>
+        <span class="kicker">Lecture 2</span>
+      </div>
+      <h2>Historical roots</h2>
+
+      <ul class="notes">
+        <li><strong>Socrates, Plato and Aristotle</strong> posed fundamental questions about mental life:
+          <ul>
+            <li>What is consciousness?</li>
+            <li>Are people inherently rational or irrational?</li>
+            <li>Is there free choice?</li>
+          </ul>
+        </li>
+        <li><strong>Hippocrates</strong> — father of medicine.</li>
+      </ul>
+    </section>
+
+    <!-- 4 -->
+    <section id="nature-nurture">
+      <div class="eyebrow">
+        <span class="kicker">The oldest argument</span>
+      </div>
+      <h2>Nature–nurture debate</h2>
+
+      <p>The question of whether human capabilities are <strong>inborn</strong> or <strong>acquired through
+        experience</strong>.</p>
+
+      <ul class="notes">
+        <li><strong>Nature view</strong> — human beings enter the world with an inborn store of knowledge and
+          understanding of reality. <span class="cite">Descartes</span></li>
+        <li><strong>Nurture view</strong> — knowledge is acquired through experience and interactions with the
+          world.</li>
+        <li><strong>John Locke</strong> — at birth the human mind is a <em>tabula rasa</em>, a blank slate on
+          which experience 'writes' knowledge and understanding as the individual matures.</li>
+        <li>This perspective gave birth to <strong>associationist psychology</strong>. Associationists denied
+          that there were inborn ideas or capabilities.
+          <ul>
+            <li>Instead they argued that the mind is filled with ideas that enter by way of the senses and
+              then become associated through principles such as <strong>similarity</strong> and
+              <strong>contrast</strong>.</li>
+          </ul>
+        </li>
+        <li>Most psychologists today take a more <strong>integrated</strong> approach.</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section id="wundt">
+      <div class="eyebrow">
+        <span class="kicker">The lab opens</span>
+      </div>
+      <h2>The beginning of scientific psychology</h2>
+
+      <ul class="notes">
+        <li><strong>Wilhelm Wundt</strong> — the father of scientific psychology; established the first lab.</li>
+        <li><strong>The big idea</strong> — mind and behaviour, like planets or chemicals or human organs,
+          could be the subject of scientific analysis.</li>
+      </ul>
+
+      <dl class="def">
+        <dt>Introspection</dt>
+        <dd>Observing and recording the nature of one's own perceptions, thoughts and feelings.</dd>
+      </dl>
+
+      <ul class="notes">
+        <li>E.g. people's reports of how heavy they perceive an object to be, and how bright a flash of light
+          seems to be — placing a rock on your hand.</li>
+        <li>Supplemented by <strong>experiments</strong>.</li>
+        <li><strong>Analogy</strong> — it's like being asked to describe, step by step, the exact taste,
+          texture and smell of a new food you are trying.</li>
+      </ul>
+    </section>
+
+    <!-- 6 -->
+    <section id="schools">
+      <div class="eyebrow">
+        <span class="kicker">Five ways of looking at the mind</span>
+      </div>
+      <h2>Schools of thought</h2>
+
+      <div class="timeline">
+
+        <article class="school">
+          <div class="school-head">
+            <h3>Structuralism</h3>
+            <span class="who">E. B. Titchener</span>
+          </div>
+          <ul class="notes">
+            <li><strong>Goal</strong> — to analyse the basic elements, or 'structures', of the mind.</li>
+            <li><strong>Analogy for engineers</strong> — think of it as reverse-engineering the mind.</li>
+          </ul>
+        </article>
+
+        <article class="school">
+          <div class="school-head">
+            <h3>Functionalism</h3>
+            <span class="who">William James</span>
+          </div>
+          <ul class="notes">
+            <li>Focused on how the mind allows people to <strong>function in the real world</strong> — how
+              people work, play and adapt to their surroundings.</li>
+            <li>Influenced by <strong>Darwin</strong>.</li>
+          </ul>
+        </article>
+
+        <article class="school">
+          <div class="school-head">
+            <h3>Behaviorism</h3>
+            <span class="who">John B. Watson</span>
+          </div>
+          <ul class="notes">
+            <li><strong>Rule</strong> — for psychology to be a true science, it must focus only on what is
+              public and observable behaviour.</li>
+            <li>The mind is a <strong>black box</strong>. We can't see inside, so we shouldn't guess. We can
+              only study the <strong>stimulus</strong> (input) and the <strong>response</strong> (output).</li>
+            <li><strong>Core belief</strong> — nearly all behaviour is a result of <strong>conditioning</strong>,
+              where the environment shapes us by reinforcing certain habits.</li>
+            <li><strong>B. F. Skinner</strong> — for example, giving children cookies to stop them from whining
+              reinforces (rewards) the habit of whining.</li>
+          </ul>
+        </article>
+
+        <article class="school">
+          <div class="school-head">
+            <h3>Gestalt Psychology</h3>
+            <span class="who">Wertheimer · Koffka · Köhler</span>
+          </div>
+          <ul class="notes">
+            <li>Appeared in <strong>Germany around 1912</strong>. It is a German word for 'form' or
+              'configuration'.</li>
+            <li>Key figures included <strong>Max Wertheimer</strong> and his colleagues,
+              <strong>Koffka</strong> and <strong>Köhler</strong>.</li>
+            <li><strong>Primary interest</strong> — perception (patterns and background).</li>
+            <li><strong>Central idea</strong> — 'the whole is different from the sum of its parts'.</li>
+            <li>Our minds automatically organise stimuli into meaningful patterns; we perceive a unified
+              whole, not just isolated bits of information.</li>
+          </ul>
+        </article>
+
+        <article class="school">
+          <div class="school-head">
+            <h3>Psychoanalysis</h3>
+            <span class="who">Sigmund Freud</span>
+          </div>
+          <ul class="notes">
+            <li>The <strong>unconscious mind</strong> shapes behaviour.</li>
+            <li><strong>Personality</strong> — id (instincts), ego (reality), superego (morals).</li>
+            <li><strong>Core concept</strong> — the unconscious: the part of our mind holding thoughts, wishes
+              and impulses that we are unaware of. Early experiences influence adult life.</li>
+          </ul>
+
+          <div class="mind">
+            <div class="layer">
+              <div class="lv"><b>Conscious level</b><span>Ego &amp; Superego</span></div>
+              <p>Thoughts, perceptions, actions.</p>
+            </div>
+            <div class="layer">
+              <div class="lv"><b>Preconscious level</b><span>Ego &amp; Superego</span></div>
+              <p>Memories, stored knowledge.</p>
+            </div>
+            <div class="layer deep">
+              <div class="lv"><b>Unconscious level</b><span>Id</span></div>
+              <p>Fears, shameful experiences, instinctual urges — violent motives, irrational wishes,
+                unacceptable sexual desires, immoral urges, selfish needs.</p>
+            </div>
+          </div>
+          <p class="caption">Structure of the mind</p>
+
+          <h3>Stages of development</h3>
+          <ul class="notes">
+            <li><strong>Oral</strong>, <strong>Anal</strong>, <strong>Phallic</strong> — 0–5 years</li>
+            <li><strong>Latency</strong></li>
+            <li><strong>Genital</strong> stage</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section id="cognitive">
+      <div class="eyebrow">
+        <span class="kicker">Later developments</span>
+      </div>
+      <h2>The cognitive revolution</h2>
+
+      <p><strong>The mind returns.</strong> After WWII it became clear that earlier theories like behaviorism
+        were too restrictive.</p>
+
+      <ul class="notes">
+        <li><strong>Information-processing</strong> — the development of computers in the 1950s gave
+          psychologists a powerful new tool to theorise about the mind as an information processor.</li>
+        <li><strong>Psycholinguists</strong> — Noam Chomsky's work on language suggested that complex mental
+          structures were required for speech, something simple conditioning couldn't explain.</li>
+        <li><strong>Neuropsychology</strong> — discoveries revealed clear relationships between events in the
+          brain and mental processes.</li>
+        <li><strong>Cultural psychology.</strong></li>
+      </ul>
+
+      <ul class="steps">
+        <li>Stimulus</li>
+        <li class="arrow">→</li>
+        <li>Sensory memory</li>
+        <li class="arrow">→ attention →</li>
+        <li>Short-term memory</li>
+        <li class="arrow">→</li>
+        <li>Long-term memory</li>
+      </ul>
+    </section>
+
+    <!-- 8 -->
+    <section id="science">
+      <div class="eyebrow">
+        <span class="date">12 Aug</span>
+        <span class="kicker">Lecture 3</span>
+      </div>
+      <h2>Psychology as a science</h2>
+
+      <dl class="def">
+        <dt>Science</dt>
+        <dd>A body of systematised knowledge that is gathered by carefully observing and measuring events.
+          <span class="src">Morgan &amp; King (2025)</span>
+        </dd>
+        <dd>How do things work.
+          <span class="src">Ciccarelli et al. (2023)</span>
+        </dd>
+      </dl>
+
+      <ul class="notes">
+        <li><strong>Systematic observation</strong> — psychologists observe and measure behaviour under
+          controlled conditions.</li>
+        <li><strong>Testable scientific theories</strong> — the organisation of observed facts. Psychological
+          theories are <strong>falsifiable</strong> and refined based on findings.</li>
+        <li><strong>Measurement</strong> — the assignment of numbers to objects or events according to certain
+          rules.
+          <ul>
+            <li><strong>Space</strong> — accurately identify the blinking of a light; gives insight into the
+              area of perception.</li>
+            <li><strong>Time</strong> — how many times in 5 minutes did you pick up the phone? Like this.</li>
+          </ul>
+        </li>
+        <li><strong>Empirical evidence</strong> — data is gathered through experiments, surveys and
+          observation.</li>
+        <li><strong>Replication</strong> — studies are designed to be repeated to verify results.</li>
+        <li><strong>Peer review</strong> — research is critically evaluated by experts before publication.</li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section id="goals">
+      <div class="eyebrow">
+        <span class="kicker">Description → Explanation → Prediction → Control</span>
+      </div>
+      <h2>The four goals of psychology</h2>
+
+      <div class="goals">
+        <article class="goal">
+          <span class="n">01</span>
+          <h3>Description</h3>
+          <p class="q">Start by observing.</p>
+          <p>Observe a behaviour and note: what is happening? Where does it happen? To whom does it happen?
+            Under what circumstances does it happen?</p>
+        </article>
+        <article class="goal">
+          <span class="n">02</span>
+          <h3>Explanation</h3>
+          <p class="q">Build a theory.</p>
+          <p>Why is this happening? A tentative explanation helps understand the observed behaviour.</p>
+        </article>
+        <article class="goal">
+          <span class="n">03</span>
+          <h3>Prediction</h3>
+          <p class="q">When will it happen again?</p>
+          <p>Theories summarise many observations and predict what can be expected in new situations.</p>
+        </article>
+        <article class="goal">
+          <span class="n">04</span>
+          <h3>Control</h3>
+          <p class="q">How can it be changed?</p>
+          <p>Control means modifying behaviour from undesirable to desirable.</p>
+        </article>
+      </div>
+
+      <dl class="def">
+        <dt>Theory</dt>
+        <dd>A general explanation of a set of observations or facts.
+          <span class="src">Description supplies the observations; explanation helps build the theory.</span>
+        </dd>
+      </dl>
+
+      <h3>The Cheryan study (2009, 2011, 2013) — from observation to evidence</h3>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Setup</th><th>Condition</th><th>Result</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>250 males &amp; females</td>
+              <td>
+                <ul>
+                  <li>Stereotypically masculine</li>
+                  <li>Non-stereotypical</li>
+                </ul>
+              </td>
+              <td><em>— left blank in notes —</em></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="notes">
+        <li><strong>Prediction</strong> — a masculine environment means fewer females.</li>
+        <li><strong>Control</strong> — the environment and the perception need changing. This can be done by
+          changing the environment and then exposing females to it. This causes a change in behaviour →
+          a higher inclination to join CSE.</li>
+      </ul>
+    </section>
+
+    <!-- 10 -->
+    <section id="methods">
+      <div class="eyebrow">
+        <span class="kicker">Steps in the scientific approach</span>
+      </div>
+      <h2>Methods in psychology</h2>
+
+      <ul class="steps">
+        <li>Observation</li>
+        <li class="arrow">→</li>
+        <li>Research question / problem</li>
+        <li class="arrow">→</li>
+        <li>Hypothesis generation</li>
+        <li class="arrow">→</li>
+        <li class="open">…</li>
+      </ul>
+
+      <div class="flag">
+        <b>Incomplete in notes</b>
+        The chain stops at hypothesis generation — the remaining steps still need to be copied from the slides.
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section id="application">
+      <div class="eyebrow">
+        <span class="kicker">The applied side</span>
+      </div>
+      <h2>The application of psychology</h2>
+
+      <ul class="notes">
+        <li>The applied side is about <strong>"solving real life problems"</strong>.</li>
+        <li>The application of knowledge to practical problems is an <strong>"art"</strong> — a skill or knack
+          of doing things.</li>
+        <li>E.g. a psychotherapist talking to a worried client; the educational psychologist suggesting a new
+          curriculum to a school.</li>
+        <li><strong>Experience is needed</strong> — you can't become one by reading a book.</li>
+      </ul>
+
+      <h3>Psychological professionals and areas of specialisation <span class="cite">(in the US)</span></h3>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr>
+              <th>Psychologist</th>
+              <th>Psychiatrist</th>
+              <th>Psychiatric social worker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <ul>
+                  <li>Has a doctorate degree (PhD, PsyD, EdD) and works with either humans or animals in a
+                    variety of settings, based on the area of specialisation.</li>
+                  <li>Must be licensed to practise independently.</li>
+                  <li>Typically does not prescribe medication, but can go through specialised training to do
+                    so in a few states.</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>A medical doctor who specialises in the diagnosis and treatment of psychological
+                    disorders.</li>
+                  <li>Can prescribe medication.</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Has training in the area of social work (M.S.W.).</li>
+                  <li>Often has a professional license to practise (L.C.S.W.).</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section id="books">
+      <div class="eyebrow">
+        <span class="kicker">Reading</span>
+      </div>
+      <h2>Books</h2>
+      <ol class="books">
+        <li>Atkinson, Hilgard, Nolen-Hoeksema, S., Fredrickson, B., Loftus, G. and Lutz, C. (2014).
+          <em>Introduction to Psychology.</em> Hampshire, United Kingdom: Cengage Learning EMEA.</li>
+        <li>Morgan, Clifford T. &amp; King, Richard A. (2017). <em>Introduction to Psychology.</em>
+          New York: McGraw-Hill.</li>
+        <li>Ciccarelli, White &amp; Misra (2022). <em>Psychology</em>, 5th Ed. Pearson.</li>
+      </ol>
+    </section>
+
+    <!-- 13 -->
+    <section id="gaps">
+      <div class="eyebrow">
+        <span class="kicker">Before the exam</span>
+      </div>
+      <h2>Gaps to fill from the slides</h2>
+
+      <div class="flag">
+        <b>Blank definition</b>
+        Morgan &amp; King's definition of psychology was left as a heading with nothing after it.
+      </div>
+      <div class="flag">
+        <b>Cheryan study — result</b>
+        The Result column of the table was never filled in, and the two room conditions have no outcome
+        attached to them.
+      </div>
+      <div class="flag">
+        <b>Scientific method — steps</b>
+        The flow ends at hypothesis generation.
+      </div>
+      <div class="flag">
+        <b>Citation years differ</b>
+        The slide lists Atkinson &amp; Hilgard (2014), Morgan &amp; King (2017) and Ciccarelli et&nbsp;al. (2022),
+        while the notes cite 2019, 2025, 2021 and 2023 — most likely different editions. Worth checking which
+        year the exam expects.
+      </div>
+      <div class="flag">
+        <b>"NCHAP"</b>
+        Written at the top of the page on the application of psychology, with no expansion. Check what it
+        stands for.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Psychology&nbsp;I · LAL&nbsp;320 · Unit&nbsp;1 · Lectures of 3, 9 and 12 August</footer>
+
+</div>
